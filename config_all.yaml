@@ -1,0 +1,36 @@
+data_opts:
+  fstride: 1
+  sample_type: all  # beh or all only when model_opts/dataset is set to jaad
+  subset: default
+  data_split_type: default  # kfold, random, default
+  seq_type: crossing
+  min_track_size: 16 # tracks shorter than this length will be discarded
+  balance_data: False # set to True to resample data so that the number of samples in each class is the same
+  obs_input_type: [local_context_cnn, pose, box, speed] # [local_box, local_surround, local_context, pose, box, speed, scene_context]
+  obs_length: 16 # observation length
+  enlarge_ratio: 1.5 # enlarging the original bounding box to capture local spatial context
+  normalize_boxes: True
+  time_to_event: [30, 60]  # 30, 60, [30,60]
+  overlap: 0.8 # set to 0.6 for pie and 0.8 for jaad
+  dataset: jaad
+  batch_size: 32
+
+train_opts:
+  epoch: 40
+  lr: 0.005
+  weight_decay: 0.0001
+
+model_opts:
+  input_size: 2
+  hidden_size: 512
+  num_layers: 2
+  model_depth: 18
+  resnet_classes: 700
+  n_input_channels: 3
+  resnet_shortcut: 'B'
+  conv1_t_size: 7
+  conv1_t_stride: 1
+  no_max_pool: False
+  resnet_widen_factor: 1.0
+  pretrain_path: 'r3d18_K_200ep.pth'
+  n_classes: 2
